@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Model M
 #define DESCRIPTION     t.m.k. keyboard firmware for IBM Model M
 
+/* define Model M keymap */
+#define KEYMAP modelm
+
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
