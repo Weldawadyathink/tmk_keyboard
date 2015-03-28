@@ -38,19 +38,19 @@ extern const uint16_t fn_actions[];
  * K2C, K31 and  K3C are extra keys for ISO
  */
 #define KEYMAP( \
-    K02, K23, K24, K14, K04, K06, K08, K19, K29, K26, K36, K3B, K3C,      K3F, K4F, K6E,                     \
-    K22, K32, K33, K34, K35, K25, K27, K37, K38, K39, K3A, K2A, K28, K16, K2C, K2E, K2D, K6B, K6C, K6D, K7D, \
-    K12, K42, K43, K44, K45, K51, K17, K47, K48, K49, K4A, K1A, K18, K56, K2B, K3E, K3D, K4B, K4C, K4D, K4E, \
-    K13, K52, K53, K54, K55, K05, K07, K57, K58, K59, K5A, K0A, K66,                     K1B, K1C, K1D,      \
-    K11, K62, K63, K64, K65, K75, K77, K67, K68, K69, K7A, K61,                K0E,      K5B, K5C, K5D, K5E, \
-    K20,      K0F,                K76,                K7F,      K60,      K7E, K7B, K7C, K0C,      K0D       \
+    K20, K32, K42, K41, K40, K60, K80, K91, K92, K62, K63, KB3, KC3,      KF3, KF4, KE6,                     \
+    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K61, KC2, KE2, KD2, KB6, KC6, KD6, KD7, \
+    K21, K24, K34, K44, K54, K15, K71, K74, K84, K94, KA4, KA1, K81, K65, KB2, KE3, KD3, KB4, KC4, KD4, KE4, \
+    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66,                     KB1, KC1, KD1,      \
+    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16,                KE0,      KB5, KC5, KD5, KE5, \
+    K02,      KF0,                K67,                KF7,      K06,      KE7, KB7, KC7, KC0,      KD0       \
 ) { \
-    { KC_##K02, KC_##K23, KC_##K24, KC_##K14, KC_##K04, KC_##K06, KC_##K08, KC_##K19, KC_##K29, KC_##K26, KC_##K36, KC_##K3B, KC_##K3C, KC_NO   , KC_##K3F, KC_##K4F, KC_##K6E, KC_NO   , KC_NO   , KC_NO   , KC_NO    }, \
-    { KC_##K22, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K25, KC_##K27, KC_##K37, KC_##K38, KC_##K39, KC_##K3A, KC_##K2A, KC_##K28, KC_##K16, KC_##K2C, KC_##K2E, KC_##K2D, KC_##K6B, KC_##K6C, KC_##K6D, KC_##K7D }, \
-    { KC_##K12, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K51, KC_##K17, KC_##K47, KC_##K48, KC_##K49, KC_##K4A, KC_##K1A, KC_##K18, KC_##K56, KC_##K2B, KC_##K3E, KC_##K3D, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E }, \
-    { KC_##K13, KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K07, KC_##K07, KC_##K57, KC_##K58, KC_##K59, KC_##K5A, KC_##K0A, KC_##K66, KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_##K1B, KC_##K1C, KC_##K1D, KC_NO    }, \
-    { KC_##K11, KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K75, KC_##K77, KC_##K67, KC_##K68, KC_##K69, KC_##K7A, KC_##K61, KC_NO   , KC_NO   , KC_NO   , KC_##K0E, KC_NO   , KC_##K5B, KC_##K5C, KC_##K5D, KC_##K5E }, \
-    { KC_##K20, KC_NO   , KC_##K0F, KC_NO   , KC_NO   , KC_NO   , KC_##K76, KC_NO   , KC_NO   , KC_NO   , KC_##K7F, KC_NO   , KC_##K60, KC_NO   , KC_##K7E, KC_##K7B, KC_##K7C, KC_##K0C, KC_NO   , KC_##K0D, KC_NO    }  \
+    { KC_##K20, KC_##K32, KC_##K42, KC_##K41, KC_##K40, KC_##K60, KC_##K80, KC_##K91, KC_##K92, KC_##K62, KC_##K63, KC_##KB3, KC_##KC3, KC_NO   , KC_##KF3, KC_##KF4, KC_##KE6, KC_NO   , KC_NO   , KC_NO   , KC_NO    }, \
+    { KC_##K22, KC_##K23, KC_##K33, KC_##K43, KC_##K53, KC_##K52, KC_##K72, KC_##K73, KC_##K83, KC_##K93, KC_##KA3, KC_##KA2, KC_##K82, KC_##K61, KC_##KC2, KC_##KE2, KC_##KD2, KC_##KB6, KC_##KC6, KC_##KD6, KC_##KD7 }, \
+    { KC_##K21, KC_##K24, KC_##K34, KC_##K44, KC_##K54, KC_##K15, KC_##K71, KC_##K74, KC_##K84, KC_##K94, KC_##KA4, KC_##KA1, KC_##K81, KC_##K65, KC_##KB2, KC_##KE3, KC_##KD3, KC_##KB4, KC_##KC4, KC_##KD4, KC_##KE4 }, \
+    { KC_##K31, KC_##K25, KC_##K35, KC_##K45, KC_##K55, KC_##K50, KC_##K70, KC_##K75, KC_##K85, KC_##K95, KC_##KA5, KC_##KA0, KC_##K66, KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_##KB1, KC_##KC1, KC_##KD1, KC_NO    }, \
+    { KC_##K11, KC_##K26, KC_##K36, KC_##K46, KC_##K56, KC_##K57, KC_##K77, KC_##K76, KC_##K86, KC_##K96, KC_##KA7, KC_##K16, KC_NO   , KC_NO   , KC_NO   , KC_##KE0, KC_NO   , KC_##KB5, KC_##KC5, KC_##KD5, KC_##KE5 }, \
+    { KC_##K02, KC_NO   , KC_##KF0, KC_NO   , KC_NO   , KC_NO   , KC_##K67, KC_NO   , KC_NO   , KC_NO   , KC_##KF7, KC_NO   , KC_##K06, KC_NO   , KC_##KE7, KC_##KB7, KC_##KC7, KC_##KC0, KC_NO   , KC_##KD0, KC_NO    }  \
 }
 
 /* ANSI valiant. No extra keys for ISO */
