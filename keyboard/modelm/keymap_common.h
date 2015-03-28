@@ -54,33 +54,38 @@ extern const uint16_t fn_actions[];
 }
 
 /* ANSI valiant. No extra keys for ISO */
-#define KEYMAP_ANSI( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D, \
-    K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
+#define KEYMAP_ANSI(							\
+    K20, K32, K42, K41, K40, K60, K80, K91, K92, K62, K63, KB3, KC3,      KF3, KF4, KE6,                     \
+    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K61, KC2, KE2, KD2, KB6, KC6, KD6, KD7, \
+    K21, K24, K34, K44, K54, K15, K71, K74, K84, K94, KA4, KA1, K81, K65, KB2, KE3, KD3, KB4, KC4, KD4, KE4, \
+    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66,                     KB1, KC1, KD1,      \
+    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16,                KE0,      KB5, KC5, KD5, KE5, \
+    K02,      KF0,                K67,                KF7,      K06,      KE7, KB7, KC7, KC0,      KD0       \
 ) KEYMAP( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, NO,  K2D, \
-    K30, NO,  K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, NO,  K3D, \
-    K40, K41, K42,           K45,                NO,  K4A, K4B, K4C, K4D  \
+    K20, K32, K42, K41, K40, K60, K80, K91, K92, K62, K63, KB3, KC3,      KF3, KF4, KE6,                     \
+    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K61, KC2, KE2, KD2, KB6, KC6, KD6, KD7, \
+    K21, K24, K34, K44, K54, K15, K71, K74, K84, K94, KA4, KA1, K81, K65, KB2, KE3, KD3, KB4, KC4, KD4, KE4, \
+    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66,                     KB1, KC1, KD1,      \
+    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16,                KE0,      KB5, KC5, KD5, KE5, \
+    K02,      KF0,                K67,                KF7,      K06,      KE7, KB7, KC7, KC0,      KD0       \
 )
 
 
-#define KEYMAP_HHKB( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K49,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3D, K3C, \
-    K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
+#define KEYMAP_HHKB(							\
+    K20, K32, K42, K41, K40, K60, K80, K91, K92, K62, K63, KB3, KC3,      KF3, KF4, KE6,                     \
+    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K61, KC2, KE2, KD2, KB6, KC6, KD6, KD7, \
+    K21, K24, K34, K44, K54, K15, K71, K74, K84, K94, KA4, KA1, K81, K65, KB2, KE3, KD3, KB4, KC4, KD4, KE4, \
+    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66,                     KB1, KC1, KD1,      \
+    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16,                KE0,      KB5, KC5, KD5, KE5, \
+    K02,      KF0,                K67,                KF7,      K06,      KE7, KB7, KC7, KC0,      KD0       \
 ) KEYMAP( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, NO,  K2D, \
-    K30, NO,  K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    K40, K41, K42,           K45,                K49, K4A, K4B, K4C, K4D  \
+    K20, K32, K42, K41, K40, K60, K80, K91, K92, K62, K63, KB3, KC3,      KF3, KF4, KE6,                     \
+    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K61, KC2, KE2, KD2, KB6, KC6, KD6, KD7, \
+    K21, K24, K34, K44, K54, K15, K71, K74, K84, K94, KA4, KA1, K81, K65, KB2, KE3, KD3, KB4, KC4, KD4, KE4, \
+    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66,                     KB1, KC1, KD1,      \
+    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16,                KE0,      KB5, KC5, KD5, KE5, \
+    K02,      KF0,                K67,                KF7,      K06,      KE7, KB7, KC7, KC0,      KD0       \
 )
 
 #endif
+
