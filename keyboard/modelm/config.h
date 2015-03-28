@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYMAP modelm
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 15
 
 /* define if matrix has ghost */
 #define MATRIX_HAS_GHOST
