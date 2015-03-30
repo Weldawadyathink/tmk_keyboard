@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+ * scan matrix
+ */
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -25,15 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 
 
-/*
- * Happy Buckling Keyboard(IBM Model M mod)
- *
- * Pin usage:
- *   COL: PD0-7
- *   ROW: PB0-7, PF4-7
- */
 #ifndef DEBOUNCE
-#   define DEBOUNCE	10
+#   define DEBOUNCE	5
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
@@ -41,10 +37,8 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-#ifdef MATRIX_HAS_GHOST
-static bool matrix_has_ghost_in_row(uint8_t row);
-#endif
 static matrix_row_t read_cols(void);
+static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
@@ -63,16 +57,9 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-
-    // initialize rows
+    // initialize row and col
     unselect_rows();
-
-    // initialize columns to input with pull-up(DDR:0, PORT:1)
-    DDRD = 0x00;
-    PORTD = 0xFF;
+    init_cols();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -130,77 +117,110 @@ matrix_row_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-    print("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < matrix_rows(); row++) {
+    print("\nr/c 0123456789ABCDEF\n");
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
-        pbin_reverse(matrix_get_row(row));
-#ifdef MATRIX_HAS_GHOST
-        if (matrix_has_ghost_in_row(row)) {
-            print(" <ghost");
-        }
-#endif
+        pbin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }
 
-#ifdef MATRIX_HAS_GHOST
-inline
-static bool matrix_has_ghost_in_row(uint8_t row)
+uint8_t matrix_key_count(void)
 {
-    // no ghost exists in case less than 2 keys on
-    if (((matrix[row] - 1) & matrix[row]) == 0)
-        return false;
-
-    // ghost exists in case same state as other row
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]))
-            return true;
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        count += bitpop16(matrix[i]);
     }
-    return false;
+    return count;
 }
-#endif
 
-inline
+/* Column pin configuration
+ * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13
+ * pin: F0  F1  E6  C7  C6  B6  D4  B1  B0  B5  B4  D7  D6  B3  (Rev.A)
+ * pin:                                 B7                      (Rev.B)
+ */
+static void  init_cols(void)
+{
+    DDRB  &= ~(1<<6 | 1<<5 | 1<<4 | 1<<3 | 1<<2 | 1<<1 | 1<<0);
+    PORTB |=  (1<<6 | 1<<5 | 1<<4 | 1<<3 | 1<<2 | 1<<1 | 1<<0);
+    DDRE  &= ~(1<<7 | 1<<6);
+    PORTE |=  (1<<7 | 1<<6);
+    DDRF  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<4 | 1<<5 | 1<<6);
+    PORTF |=  (1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<4 | 1<<5 | 1<<6);
+}
+
 static matrix_row_t read_cols(void)
 {
-    return ~PIND;
+    return (PINB&(1<<6) ? 0 : (1<<0)) |
+           (PINB&(1<<5) ? 0 : (1<<1)) |
+           (PINB&(1<<4) ? 0 : (1<<2)) |
+           (PINB&(1<<3) ? 0 : (1<<3)) |
+           (PINB&(1<<2) ? 0 : (1<<4)) |
+           (PINB&(1<<1) ? 0 : (1<<5)) |
+           (PINB&(1<<0) ? 0 : (1<<6)) |
+           (PINE&(1<<7) ? 0 : (1<<7)) |
+           (PINE&(1<<6) ? 0 : (1<<8)) |
+           (PINF&(1<<0) ? 0 : (1<<9)) |
+           (PINF&(1<<1) ? 0 : (1<<10)) |
+           (PINF&(1<<2) ? 0 : (1<<11)) |
+           (PINF&(1<<3) ? 0 : (1<<12)) |
+           (PINF&(1<<4) ? 0 : (1<<13)) |
+           (PINF&(1<<5) ? 0 : (1<<14)) |
+           (PINF&(1<<6) ? 0 : (1<<15));
+
 }
 
-inline
+
+/* Row pin configuration
+ * row: 0   1   2   3   4
+ * pin: D0  D1  D2  D3  D5
+ */
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~0b11111111;
-    PORTB &= ~0b11111111;
-    DDRF  &= ~0b11110000;
-    PORTF &= ~0b11110000;
+    DDRF  &= ~0b10000000;
+    PORTF &= ~0b10000000;
+    DDRC  &= ~0b11111110;
+    PORTC &= ~0b11111110;
+
 }
 
-inline
 static void select_row(uint8_t row)
 {
     // Output low(DDR:1, PORT:0) to select
     switch (row) {
         case 0:
+            DDRF  |= (1<<7);
+            PORTF &= ~(1<<7);
+            break;
         case 1:
+            DDRC  |= (1<<7);
+            PORTC &= ~(1<<7);
+            break;
         case 2:
+            DDRC  |= (1<<6);
+            PORTC &= ~(1<<6);
+            break;
         case 3:
+            DDRC  |= (1<<5);
+            PORTC &= ~(1<<5);
+            break;
         case 4:
+            DDRC  |= (1<<4);
+            PORTC &= ~(1<<4);
+            break;
         case 5:
+            DDRC  |= (1<<3);
+            PORTC &= ~(1<<3);
+            break;
         case 6:
+            DDRC  |= (1<<2);
+            PORTC &= ~(1<<2);
+            break;
         case 7:
-            DDRB  |=  (1<<row);
-            PORTB &= ~(1<<row);
-            break;
-        case 8:
-            DDRF  |=  (1<<4);
-            PORTF &= ~(1<<4);
-            break;
-        case 9:
-        case 10:
-        case 11:
-            DDRF  |=  (1<<(row-4));
-            PORTF &= ~(1<<(row-4));
+            DDRC  |= (1<<1);
+            PORTC &= ~(1<<1);
             break;
     }
+
 }
